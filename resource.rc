@@ -1,0 +1,223 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Polish resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_PLK)
+#ifdef _WIN32
+LANGUAGE LANG_POLISH, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,3,19,0
+ PRODUCTVERSION 0,6,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041504b0"
+        BEGIN
+            VALUE "CompanyName", "Stamina"
+            VALUE "FileDescription", "Obs³uga protoko³u Jabber"
+            VALUE "FileVersion", "0.3.19"
+            VALUE "InternalName", "kJabber"
+            VALUE "LegalCopyright", "Copyright (C) 2004,2005,2006 Stamina"
+            VALUE "OriginalFilename", "kJabber.DLL"
+            VALUE "ProductName", "kJabber"
+            VALUE "ProductVersion", "0.6"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x415, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_TB_OPTIONS          ICON                    "res/tb_options.ico"
+IDI_LOGO                ICON                    "res/logo.ico"
+IDI_ST_ONLINE           ICON                    "res/st_online.ico"
+IDI_ST_OFFLINE          ICON                    "res/st_offline.ico"
+IDI_ST_AWAY             ICON                    "res/st_away.ico"
+IDI_ST_NA               ICON                    "res/st_na.ico"
+IDI_ST_DND              ICON                    "res/st_dnd.ico"
+IDI_ST_CHAT             ICON                    "res/st_chat.ico"
+IDI_ST_HIDDEN           ICON                    "res/st_hidden.ico"
+IDI_ST_CONNECTING       ICON                    "res/st_connecting.ico"
+IDI_OVERLAY             ICON                    "res/overlay.ico"
+IDI_DISCO               ICON                    "res/discovery.ico"
+IDI_SERVICE             ICON                    "res/service.ico"
+IDI_FEATURE             ICON                    "res/feature.ico"
+IDI_IDENTITY            ICON                    "res/identity.ico"
+IDI_CONFERENCE          ICON                    "res/conference.ico"
+IDI_TB_FORWARD          ICON                    "res/tb_forward.ico"
+IDI_TB_BACK             ICON                    "res/tb_back.ico"
+IDI_TB_STOP             ICON                    "res/tb_stop.ico"
+IDI_TB_ENTER            ICON                    "res/tb_enter.ico"
+IDI_TB_UP               ICON                    "res/tb_up.ico"
+IDI_TB_GO               ICON                    "res/tb_go.ico"
+IDI_TB_REFRESH          ICON                    "res/tb_refresh.ico"
+IDI_STATE_NONE          ICON                    "res/state_none.ico"
+IDI_STATE_QUERYING      ICON                    "res/state_querying.ico"
+IDI_STATE_ERROR         ICON                    "res/state_error.ico"
+IDI_STATE_READY         ICON                    "res/state_ready.ico"
+IDI_MENU_REGISTER       ICON                    "res/menu_register.ico"
+IDI_MENU_SEARCH         ICON                    "res/menu_search.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+SETGG                   BITMAP                  "res/gg.bmp"
+SETAIM                  BITMAP                  "res/aim.bmp"
+SETMSN                  BITMAP                  "res/msn.bmp"
+SETYAHOO                BITMAP                  "res/yahoo.bmp"
+SETICQ                  BITMAP                  "res/icq.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_XDATA DIALOGEX 50, 50, 310, 209
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_CONTROLPARENT
+CAPTION "XFORM"
+FONT 8, "MS Shell Dlg", 0, 0, 0xEE
+BEGIN
+    GROUPBOX        "",IDC_BORDER,5,40,300,136
+    PUSHBUTTON      "OK",IDOK,241,181,64,13
+    PUSHBUTTON      "Anuluj",IDCANCEL,114,181,64,13
+    PUSHBUTTON      "",IDB_SPECIAL,5,181,64,13,NOT WS_VISIBLE
+    CONTROL         "",IDC_INFO,"RichEdit20A",ES_CENTER | ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL,5,5,300,35
+END
+
+IDD_DISCO DIALOGEX 50, 50, 390, 217
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_FIXEDSYS | DS_CENTER | 
+    WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | 
+    WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Przegl¹darka us³ug"
+FONT 8, "MS Shell Dlg", 0, 0, 0xEE
+BEGIN
+    CONTROL         "",IDC_TREE1,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | 
+                    WS_TABSTOP,5,132,280,66,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_INFO,"RichEdit20A",ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_READONLY | WS_VSCROLL | WS_TABSTOP,285,30,100,168,
+                    WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_SMALLICON | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | 
+                    LVS_NOSORTHEADER | WS_TABSTOP,5,30,280,95,
+                    WS_EX_CLIENTEDGE
+    COMBOBOX        IDC_LOCATION,163,12,214,100,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_XDATA, DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 305
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 194
+        HORZGUIDE, 40
+        HORZGUIDE, 176
+    END
+
+    IDD_DISCO, DIALOG
+    BEGIN
+        RIGHTMARGIN, 385
+        VERTGUIDE, 5
+        VERTGUIDE, 285
+        BOTTOMMARGIN, 198
+        HORZGUIDE, 30
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Polish resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
