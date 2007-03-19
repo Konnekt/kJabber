@@ -23,7 +23,7 @@ cFeatureXData::~cFeatureXData() {
 }
 void cFeatureXData::Create() {
 	/* Pierwszy pakiet do wys³ania... */
-	xData.evtCommand.connect(SigC::slot(*this, OnCommand));
+	xData.evtCommand.connect(SigC::slot(*this, &cFeatureXData::OnCommand));
 	Submit(false);
 	/* Dalej ¿yje ju¿ w³asnym ¿yciem... */
 }
@@ -119,13 +119,13 @@ void cFeatureNeg::Submit(bool cancel) {
 			/* Wstawiamy wynik formularza... */
 			xData.InjectResult(*feat);
 		}
-		jab.GetSession().registerIQ(id, SigC::slot(*this, OnIQ));
+		jab.GetSession().registerIQ(id, SigC::slot(*this, &cFeatureNeg::OnIQ));
 	}
 	jab.GetSession() << jabberoo::Packet(*iq);
 }
 
 void cFeatureNeg::OnIQ(const judo::Element & e) {
-	if (!SafeOnIQ(SigC::slot(*this, OnIQ), e))
+	if (!SafeOnIQ(SigC::slot(*this, &cFeatureNeg::OnIQ), e))
 		return;
 	this->id = ""; // odebrany - usuniêty... mo¿na o nim zapomnieæ...
 	if (IsError(e))
@@ -163,12 +163,12 @@ void cFeatureIQRegister::Submit(bool cancel) {
 		// pierwsza wysy³ka - wystarczy sam get
 	}
 	if (!cancel)
-		jab.GetSession().registerIQ(id, SigC::slot(*this, OnIQ));
+		jab.GetSession().registerIQ(id, SigC::slot(*this, &cFeatureIQRegister::OnIQ));
 	jab.GetSession() << jabberoo::Packet(*iq);
 }
 
 void cFeatureIQRegister::OnIQ(const judo::Element & e) {
-	if (!SafeOnIQ(SigC::slot(*this, OnIQ), e))
+	if (!SafeOnIQ(SigC::slot(*this, &cFeatureIQRegister::OnIQ), e))
 		return;
 	this->id = ""; // odebrany - usuniêty... mo¿na o nim zapomnieæ...
 	if (IsError(e))
@@ -206,7 +206,7 @@ void cFeatureIQRegister::OnCommand(int command) {
 		judo::Element * query = iq->addElement("query");
 		query->putAttrib("xmlns", "jabber:iq:register");
 		query->addElement("remove");
-		jab.GetSession().registerIQ(id, SigC::slot(*this, OnIQ));
+		jab.GetSession().registerIQ(id, SigC::slot(*this, &cFeatureIQRegister::OnIQ));
 		jab.GetSession() << jabberoo::Packet(*iq);
 		return;
 	}
@@ -236,12 +236,12 @@ void cFeatureIQSearch::Submit(bool cancel) {
 		// pierwsza wysy³ka - wystarczy sam get
 	}
 	if (!cancel)
-		jab.GetSession().registerIQ(id, SigC::slot(*this, OnIQ));
+		jab.GetSession().registerIQ(id, SigC::slot(*this, &cFeatureIQSearch::OnIQ));
 	jab.GetSession() << jabberoo::Packet(*iq);
 }
 
 void cFeatureIQSearch::OnIQ(const judo::Element & e) {
-	if (!SafeOnIQ(SigC::slot(*this, OnIQ), e))
+	if (!SafeOnIQ(SigC::slot(*this, &cFeatureIQSearch::OnIQ), e))
 		return;
 	this->id = ""; // odebrany - usuniêty... mo¿na o nim zapomnieæ...
 	if (IsError(e))

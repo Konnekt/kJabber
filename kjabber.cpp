@@ -78,6 +78,7 @@ int ISetCols() {
 	SetColumn(DTCFG, kJabber::CFG::discoViewGrouping, DT_CT_INT, 1 , "kJabber/disco/viewGrouping");
 	SetColumn(DTCFG, kJabber::CFG::discoInfo, DT_CT_INT, 1 , "kJabber/disco/info");
 
+
 	return 1;
 }
 
@@ -241,7 +242,7 @@ int ActionCfgProc(sUIActionNotify_base * anBase) {
   return 0;
 }
 
-ActionProc(sUIActionNotify_base * anBase) {
+int ActionProc(sUIActionNotify_base * anBase) {
   /* Tutaj obs³ugujemy akcje */ 
   /* Poni¿sza linijka s³u¿y TYLKO waszej wygodzie! 
      Wiêkszoœæ (o ile nie wszystkie) powiadomieñ przesy³ana jest jako sUIActionNotify_2params,

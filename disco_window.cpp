@@ -94,9 +94,9 @@ void cDiscoWindow::ReadJID(CStdString jid , CStdString node, bool refresh) {
 	// uzupe³niamy cache
 	if (!item || (item->getState() != DiscoDB::Item::stReady && !(item->getState() & DiscoDB::Item::stQuerying)) ) {
 		if (node.empty())
-			DiscoDB().cache(jid , SigC::slot(*this , CacheCallback) , true);
+			DiscoDB().cache(jid , SigC::slot(*this , &cDiscoWindow::CacheCallback) , true);
 		else
-			DiscoDB().cache(jid , node , SigC::slot(*this , CacheCallback) , true);
+			DiscoDB().cache(jid , node , SigC::slot(*this , &cDiscoWindow::CacheCallback) , true);
 		// wczytujemy nowy
 		if (!item)
 			item = DiscoDB().find(jid , node);

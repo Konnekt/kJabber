@@ -120,15 +120,22 @@ void cJabber::OnMessage(const jabberoo::Message & jabMsg) {
 	m.flag = MF_HANDLEDBYUI;
 	CStdString body = "";
 	judo::Element const *  bodyElement;
+	bool inHtml = true;
 	bodyElement = jabMsg.getBaseElement().findElement("html");
-	if (!bodyElement) // nie ma html-im, próbujemy plain-text...
+	if (!bodyElement || (Ctrl->DTgetInt(DTCFG, 0, dtPrefix + "/acceptHTML") == 0)) {// nie ma html-im, próbujemy plain-text...
 		bodyElement = jabMsg.getBaseElement().findElement("body");
+		inHtml = false;
+	}
 	// ¿eby móc czytaæ wiadomoœci od innych klientów nie zgodnych ze standardem
 	// uznajemy nawet zwyk³e "body" za zwyk³y tekst...
 	if (bodyElement) {
-		if (bodyElement->size() == 1 && (*bodyElement->begin())->getType() == judo::Element::Node::ntCDATA) {
+		if (inHtml == false || (bodyElement->size() == 1 && (*bodyElement->begin())->getType() == judo::Element::Node::ntCDATA)) {
 			// plain-text
-			body = UTF8ToLocale(bodyElement->getCDATA());
+			if ((*bodyElement->begin())->getType() == judo::Element::Node::ntCDATA) {
+				body = UTF8ToLocale(bodyElement->getCDATA());
+			} else {
+				body = UTF8ToLocale(bodyElement->toString());
+			}
 		} else {
 			m.flag |= MF_HTML;
 			body = UTF8ToLocale(bodyElement->toStringEx(true , true));
@@ -137,14 +144,40 @@ void cJabber::OnMessage(const jabberoo::Message & jabMsg) {
 			// usuwamy potencjalnie niebezpieczne elementy w ca³oœci - zostawiamy tylko wybrane bezpieczne
 			body = preg.replace("#<(?!/?(b|strong|i|u|br|span|font)[ \t\r\n/>])[^>]+>#si" , "" , body);
 			// usuwamy potencjalnie niebezpieczne atrybuty
-			body = preg.replace("#(<[^>]+)\\s+(?!color|style)\\w+?\\s*=\\s*(['\"]?)[^>]*?\\2#is" , "\\1" , body);
+			CStdString replaced;
+			while (1) {
+				replaced = preg.replace("#(<[^>]+)\\s+(?!color|style)\\w+?\\s*=\\s*(['\"]?)[^>]*?\\2#is" , "\\1" , body);
+				if (replaced != body) {
+					body = replaced;
+				} else {
+					break;
+				}
+			};
+			// usuwamy niebezpieczne wyra¿enia
+			while (1) {
+				replaced = preg.replace("#(<[^>]+)(javascript|[()]+|expression|url)#is" , "\\1" , body);
+				if (replaced != body) {
+					body = replaced;
+				} else {
+					break;
+				}
+			};
+
+			
 			// specjalnie dla kijewa &apos;
 			//body = preg.replace("#\\s+(?!color|style)\\w+?\\s*=\\s*(['\"]?)[^>]*?\\1#is" , "" , body);
+
+			// czycimy potencjalnie niebezpieczne rzeczy
+
 			IMLOG("- msgFiltered %s" , body.c_str());
 		}
 	}
 	if (jabMsg.getType() == Message::mtError) {
-		body = "B³¹d: " + UTF8ToLocale(jabMsg.getError()) + " [" + body.substr(0 , 30) + "...]";
+		body = "B³¹d: ";
+		body += UTF8ToLocale(jabMsg.getError());
+		body += " [";
+		body += body.substr(0 , 30);
+		body += "...]";
 		m.type = MT_QUICKEVENT;
 	}
 
@@ -161,7 +194,7 @@ void cJabber::OnMessage(const jabberoo::Message & jabMsg) {
 	}
 	if (jabMsg.getType() == Message::mtGroupchat && !JID::getResource(jabMsg.getFrom()).empty()) {
 		ext = SetExtParam(ext, MEX_DISPLAY, JID::getResource(jabMsg.getFrom()));
-		if (jabMsg.getFrom() == from && abs(jabMsg.getDateTime_() - time(0)) < 5) { // dostaliœmy wiadomoœæ od siebie samych!!!
+		if (jabMsg.getFrom() == from && abs((int)(jabMsg.getDateTime_() - time(0))) < 5) { // dostaliœmy wiadomoœæ od siebie samych!!!
 			return;
 		}
 	} else if (jabMsg.getType() == Message::mtHeadline) {

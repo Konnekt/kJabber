@@ -21,6 +21,9 @@ void cJabber::SetColumns() {
 	plug->SetColumn(DTCFG , -1 , DT_CT_PCHAR , "users.jabber.org" , this->dtPrefix + "/JUDserver");
 	plug->SetColumn(DTCFG , -1 , DT_CT_INT , 0 , this->dtPrefix + "/SSL");
 	plug->SetColumn(DTCFG , -1 , DT_CT_INT , 10 , dtPrefix + "/priority");
+	plug->SetColumn(DTCFG , -1 , DT_CT_INT , 10 , dtPrefix + "/priority");
+	SetColumn(DTCFG, -1 , DT_CT_INT, 1 , dtPrefix + "/acceptHTML");
+
 }
 
 void cJabber::UIPrepare() {
@@ -84,6 +87,7 @@ void cJabber::UIPrepare() {
 
 			plug->UIActionInsert(cfg , 0 , -1 , ACTT_COMMENT | ACTSC_INLINE , "Serwer JUD" , 0 , 55);
 			plug->UIActionInsert(cfg , 0 , -1 , ACTT_COMBO | ACTSCOMBO_NOICON , "users.jabber.org" , plug->DTgetNameID(DTCFG , dtPrefix + "/JUDserver") , 150);
+			plug->UIActionInsert(cfg , 0 , -1 , ACTT_CHECK, "Przyjmuj wiadomoœci z formatowaniem (HTML)" , plug->DTgetNameID(DTCFG , dtPrefix + "/acceptHTML"));
 		} plug->UIActionInsert(cfg , 0 , -1 , ACTT_GROUPEND);
 	}
 

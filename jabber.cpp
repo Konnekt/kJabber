@@ -370,7 +370,7 @@ bool cJabber::SendCntSearch(sCNTSEARCH * sr) {
 	if (sr->surname && *sr->surname) {
 		query->addElement("last" , kJabber::LocaleToUTF8(sr->surname));
 	}
-	session.registerIQ(id , SigC::slot(*this , OnIQSearchReply));
+	session.registerIQ(id , SigC::slot(*this , &cJabber::OnIQSearchReply));
 	session << iq;
 	return true;
 }
@@ -389,7 +389,7 @@ bool cJabber::SendVCardRequest(int cntID) {
     judo::Element* vCard = iq.addElement("vCard");
 	vCard->putAttrib("xmlns" , "vcard-temp");
 	vCard->putAttrib("version", "2.0"); 
-	session.registerIQ(id , SigC::slot(*this , OnIQVCardRequestReply));
+	session.registerIQ(id , SigC::slot(*this , &cJabber::OnIQVCardRequestReply));
 	session << iq;
 	return true;
 }
@@ -490,7 +490,7 @@ bool cJabber::SendVCardSet(bool window) {
 	vCard->addElement("JABBERID" , JID::getUserHost(session.getLocalJID()));
 	vCardSetAddress(vCard , window , "")->addElement("HOME");
 	vCardSetAddress(vCard , window , "Work/")->addElement("WORK");
-	session.registerIQ(id , SigC::slot(*this , OnIQVCardSetReply));
+	session.registerIQ(id , SigC::slot(*this , &cJabber::OnIQVCardSetReply));
 	session << iq;
 	return true;
 }

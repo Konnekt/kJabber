@@ -546,13 +546,13 @@ void cDiscoItem::PopupResult(cDiscoWindow * owner , HMENU menu , int id) {
 		sDIALOG_enter sde;
 		sde.id = "kJabber/conference/nick";
 		sde.title = "Twój nick";
-		CStdString info = "Wpisz pseudonim którego chcesz u¿ywaæ na " + room + "@" + JID::getHost(item->getJID());
+		CStdString info = "Wpisz pseudonim którego chcesz u¿ywaæ na " + room + "@" + CStdString( JID::getHost(item->getJID()) );
 		sde.info = info;
 		sde.handle = (void*)owner->hwnd;
 		if (!owner->Jab().GetPlug()->ICMessage(IMI_DLGENTER, (int) &sde) || !sde.value || !*sde.value)
 			return;
 		nick = sde.value;
-		jid = room + '@' + JID::getHost(item->getJID()) + "/" + nick;
+		jid = room + '@' + CStdString( JID::getHost(item->getJID()) ) + "/" + nick;
 		int cnt = owner->Jab().GetPlug()->ICMessage(IMC_CNT_FIND, owner->Jab().GetNet(), (int)jid.c_str());
 		if (cnt == -1) { // dodajemy kontakt...
 			cnt = owner->Jab().GetPlug()->ICMessage(IMC_CNT_ADD, owner->Jab().GetNet(), (int)jid.c_str());
