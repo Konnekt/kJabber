@@ -27,7 +27,7 @@ LANGUAGE LANG_POLISH, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,3,20,0
+ FILEVERSION 0,3,21,0
  PRODUCTVERSION 0,6,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
@@ -45,7 +45,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Stamina"
             VALUE "FileDescription", "Obs³uga protoko³u Jabber"
-            VALUE "FileVersion", "0.3.20"
+            VALUE "FileVersion", "0.3.21"
             VALUE "InternalName", "kJabber"
             VALUE "LegalCopyright", "Copyright (C) 2004-2007 Stamina"
             VALUE "OriginalFilename", "kJabber.DLL"
